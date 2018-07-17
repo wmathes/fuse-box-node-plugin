@@ -3,6 +3,11 @@ Plugin for [fuse-box](https://fuse-box.org) to allow inclusion of `.node` binari
 
 Intented to be released completely on npm in the near future. 
 
+## Usage
+This isn't on NPM yet and the project didn't get any love yet either. Download `NodePlugin.ts`, compile using `tsc NodePlugin.ts` and dump it into your project (perhaps next to your fuse.js). 
+
+npmjs.org package coming soon.
+
 ## Configuration
 ```ts
 interface NodePluginOptions {
