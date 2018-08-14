@@ -1,5 +1,9 @@
 # fuse-box-node-plugin
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+[![Build Status](https://travis-ci.com/wmathes/fuse-box-node-plugin.svg)](https://travis-ci.org/wmathes/fuse-box-node-plugin)
+[![GitHub issues](https://img.shields.io/github/issues/wmathes/fuse-box-node-plugin.svg)](https://github.com/wmathes/fuse-box-node-plugin/issues)
+[![devDependencies Status](https://david-dm.org/wmathes/fuse-box-node-plugin/dev-status.svg)](https://david-dm.org/wmathes/fuse-box-node-plugin?type=dev)
+[![dependencies Status](https://david-dm.org/wmathes/fuse-box-node-plugin/status.svg)](https://david-dm.org/wmathes/fuse-box-node-plugin)
 
 Plugin for [fuse-box](https://fuse-box.org) to allow inclusion of `.node` binaries and related dependencies
 
