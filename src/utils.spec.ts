@@ -8,7 +8,9 @@ test("copyTree()", (t) => {
     const artifacts = path.resolve(__dirname, "..", ".artifacts", "NodePluginClass", "copyDependencies");
 
     // purge files from earlier test
-    fs.rmdirSync(artifacts);
+    if (fs.existsSync(artifacts)) {
+        fs.removeSync(artifacts);
+    }
 
     const sourcePath = path.join(artifacts, "source");
     const destPath = path.join(artifacts, "dest");
@@ -46,7 +48,7 @@ test("copyTree()", (t) => {
 
     // patterns
     const patterns: string[] = [
-        "**.md", // all markdown files
+        "**/*.md", // all markdown files
         "foo/**/*.js", // javascript files in /foo
         "static/art.jpg", // specific file
         "apples/**" // all files
@@ -65,11 +67,12 @@ test("copyTree()", (t) => {
     ].sort();
 
     // test
-    copyTreeSync(patterns, sourcePath, destPath);
+    copyTreeSync(sourcePath, destPath, patterns);
 
-    const copied = glob.sync(path.join(destPath, "**/*"), {nodir: true, absolute: true})
-        .map((p) => path.relative(destPath, p))
+    const copied = glob
+        .sync(path.join(destPath, "**/*"), {nodir: true, absolute: true})
+        .map((p) => path.relative(destPath, p).split("\\").join("/")) // cross-platform
         .sort();
 
-    t.is(copied, expected, "should have copied these files");
+    t.deepEqual(copied, expected, "should have copied these files");
 });

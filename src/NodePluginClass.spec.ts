@@ -1,7 +1,4 @@
 import test from "ava";
-import {randomFillSync} from "crypto";
-import * as path from "path";
-import * as fs from "fs-extra";
 import NodePluginClass from "./NodePluginClass";
 
 test("new NodePlugin()", (t) => {
@@ -39,4 +36,3 @@ test("init()", (t) => {
         }
     } as any);
 });
-

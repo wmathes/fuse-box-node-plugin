@@ -3,11 +3,11 @@ import {File, Plugin, WorkFlowContext} from "fuse-box";
 import {hashString, joinFuseBoxPath, string2RegExp} from "fuse-box/Utils";
 import * as path from "path";
 import {utils} from "realm-utils";
-import {copyTreeSync} from "./utils";
 import {INodePluginOptions} from "./index";
+import {copyTreeSync} from "./utils";
 
 export default class NodePluginClass implements Plugin {
-    public test: RegExp = /\.node$/;
+    public test: RegExp = /\.node$/; // todo init probably not required
 
     private readonly dest: string;
 
@@ -85,7 +85,7 @@ export default class NodePluginClass implements Plugin {
                         }
 
                         if (utils.isArray(options.relativeDependencies)) {
-                            copyTreeSync(options.relativeDependencies, rootDirAbs, path.resolve(context.output.dir, this.dest));
+                            copyTreeSync(rootDirAbs, path.resolve(context.output.dir, this.dest), options.relativeDependencies);
                         }
 
                         return resolve();

@@ -22,7 +22,6 @@
     "semantic-release": "semantic-release",
     "watch": "ava-ts -w"
   },
-  "version": "1.0.0-pre",
   "repository": {
     "type": "git",
     "url": "https://github.com/wmathes/fuse-box-node-plugin.git"

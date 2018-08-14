@@ -3,7 +3,12 @@ import {ensureDirSync} from "fs-extra";
 import * as glob from "glob";
 import * as path from "path";
 
-export function copyTreeSync(patterns: string[], sourcePathAbs: string, destPathAbs: string): void {
+export function copyTree(sourcePathAbs: string, destPathAbs: string, patterns: null|string[] = ["**/*"]): Promise<any> {
+    return Promise.reject("not implemented yet");
+}
+
+export function copyTreeSync(sourcePathAbs: string, destPathAbs: string, patterns: string[] = ["**/*"]): void {
+
     patterns.forEach((pattern) => {
         glob.sync(path.resolve(sourcePathAbs, pattern), {nodir: true, absolute: true})
             .forEach((fileAbs: string) => {
