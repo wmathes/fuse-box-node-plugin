@@ -1,6 +1,7 @@
 /.idea
 /src
 /node_modules
+.artifacts
 .gitignore
 .travis.yml
 tsconfig.json

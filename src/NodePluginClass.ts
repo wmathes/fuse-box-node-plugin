@@ -7,37 +7,41 @@ import {INodePluginOptions} from "./index";
 import {copyTreeSync} from "./utils";
 
 export default class NodePluginClass implements Plugin {
-    public test: RegExp = /\.node$/; // todo init probably not required
 
-    private readonly dest: string;
+    public test: RegExp;
 
     constructor(public options: INodePluginOptions) {
         if (!options || !options.file) {
             throw new Error("invalid options provided");
         }
 
-        if (utils.isArray(options.relativeDependencies)) {
-            if (options.relativeDependencies
-                .filter((rd) =>
-                    !utils.isString(rd)
-                    || !rd.trim()
-                    || path.isAbsolute(rd))
-                .length > 0) {
-                throw new Error("invalid relative dependencies. all entries must be relative path strings.");
-            }
+        // defaults
+        options.moduleFolder = options.moduleFolder || "modules";
+        options.identifier = options.identifier || path.basename(options.file, ".node");
+        options.relativeDependencies = options.relativeDependencies || [];
+        options.root = options.root || undefined;
+
+        // validations
+        // ... relative dependencies
+        const invalidRelativeDependencies = options.relativeDependencies
+            .filter((rd) =>
+                !utils.isString(rd)
+                || !rd.trim()
+                || path.isAbsolute(rd));
+        if (invalidRelativeDependencies.length > 0) {
+            throw new Error("invalid relative dependencies. all entries must be relative path strings.");
         }
 
-        if (options.identifier) {
-            // not exactly perfect check, but should cover most scenarios
-            if (!/\^[a-zA-Z0-9 .-_]+asd$/.test(options.identifier)) {
-                throw new Error("invalid identifier. must be directory-name compatible string.");
-            }
-        }
-        else {
-            options.identifier = path.basename(options.file, ".node");
+        // ... identifier
+        if (!/^[a-zA-Z0-9 ._-]+$/.test(options.identifier)) {
+            throw new Error("invalid identifier. must be directory-name compatible string: " + options.identifier);
         }
 
-        this.dest = `modules/${options.identifier}`;
+        // ... module folder
+        if (!/^[a-zA-Z0-9 ._-]+$/.test(options.moduleFolder)) {
+            throw new Error("invalid module folder. must be directory-name compatible string: " + options.moduleFolder);
+        }
+
         this.test = string2RegExp(options.file);
     }
 
@@ -63,8 +67,9 @@ export default class NodePluginClass implements Plugin {
         }
 
         // filename
+        const dest = `${options.moduleFolder}/${options.identifier}`;
         const userFile = (!context.hash ? hashString(file.info.fuseBoxPath) + "-" : "") + path.basename(file.info.fuseBoxPath);
-        const userDest = path.join(this.dest, path.dirname(file.info.fuseBoxPath));
+        const userDest = path.join(dest, path.dirname(file.info.fuseBoxPath));
 
         // output file path
         const userPath = path.join(userDest, userFile);
@@ -85,7 +90,7 @@ export default class NodePluginClass implements Plugin {
                         }
 
                         if (utils.isArray(options.relativeDependencies)) {
-                            copyTreeSync(rootDirAbs, path.resolve(context.output.dir, this.dest), options.relativeDependencies);
+                            copyTreeSync(rootDirAbs, path.resolve(context.output.dir, dest), options.relativeDependencies);
                         }
 
                         return resolve();

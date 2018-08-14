@@ -4,6 +4,7 @@ export interface INodePluginOptions {
     file: string;
     root?: string;
     identifier?: string;
+    moduleFolder?: string;
     relativeDependencies?: string[];
 }
 
