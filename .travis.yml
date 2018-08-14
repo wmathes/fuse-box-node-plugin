@@ -5,8 +5,7 @@ cache:
   directories:
   - node_modules
 
-before_install:
-  - docker pull ${LAMBDA_IMAGE}
+
 
 install:
   - npm install
