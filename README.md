@@ -1,27 +1,34 @@
 # fuse-box-node-plugin
+[![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg)](https://github.com/semantic-release/semantic-release)
+
 Plugin for [fuse-box](https://fuse-box.org) to allow inclusion of `.node` binaries and related dependencies
 
-Intented to be released completely on npm in the near future. 
-
 ## Usage
-This isn't on NPM yet and the project didn't get any love yet either. Download `NodePlugin.ts`, compile using `tsc NodePlugin.ts` and dump it into your project (perhaps next to your fuse.js). 
-
-npmjs.org package coming soon.
+Install via `npm i fuse-box-node-plugin --save-dev`.
 
 ## Configuration
+`NodePlugin` follows the factorization and configuration pattern of official fuse-box plugins.
+
+Including `const {NodePlugin} = require("fuse-box-node-plugin");` will return a factory function, which accepts an options literal in the following format:
+
 ```ts
 interface NodePluginOptions {
-    file: string; // file path to the .node file
-    root?: string; // a root folder to be used when copying over 
+    // file path to the .node file
+    file: string;
+
+    // a root folder to be used when copying over, defaults to file's dirname
+    root?: string;
+
+    // output folder for NodePlugin assets. defaults to "modules"
+    moduleFolder?: string
+
+    // defaults to file's basename, defines subfolder in moduleFolder
     identifier?: string;
+
+    // a list of globs relative root-folder, matching files will be copied into the bundle
     relativeDependencies?: string[];
 }
 ```
-
-file: set file to your `.node` file.
-root: a folder to be used as module root. Should be set to the lowest common directory of your relative dependencies and .node file, defaults to file's directory.
-identifier: overrides identifier when facing module with equal file names, defaults to the file name w/o extension.
-relativeDependencies: a list of globs for dependencies relative to file.
 
 ## Examples
 
@@ -44,6 +51,3 @@ plugins: [
 ```
 
 This will generate a `modules/sharp/` directory in your configured output, which mirrors the tree structure of `node_modules/sharp` for all files matching `relativeDependencies`.
-
-
-
