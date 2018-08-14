@@ -1,0 +1,56 @@
+{
+  "name": "fuse-box-node-plugin",
+  "description": "a cli tool to reduce your docker-compose overhead",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "engines": {
+    "node": ">=8"
+  },
+  "keywords": [
+    "fuse-box",
+    "fuse-box-plugin",
+    "node",
+    "module",
+    "sharp"
+  ],
+  "scripts": {
+    "build": "npm run clean && tsc -p .",
+    "clean": "del-cli ./lib",
+    "test": "npm run lint -s && ava-ts -v",
+    "lint": "tslint -t stylish \"src/**/*.ts\"",
+    "lint:fix": "npm run lint -s -- --fix",
+    "semantic-release": "semantic-release",
+    "watch": "ava-ts -w"
+  },
+  "version": "1.0.0-pre",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wmathes/fuse-box-node-plugin.git"
+  },
+  "author": "Wolf T. Mathes",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/fs-extra": "^5.0.4",
+    "@types/glob": "^5.0.35",
+    "@types/node": "^10.5.7",
+    "ava": "^0.25.0",
+    "ava-ts": "^0.25.0",
+    "del-cli": "^1.1.0",
+    "fs-extra": "^7.0.0",
+    "fuse-box": "^3.4.0",
+    "glob": "^7.1.2",
+    "semantic-release": "^15.9.5",
+    "ts-node": "^7.0.0",
+    "tslint": "^5.11.0",
+    "tslint-microsoft-contrib": "^5.1.0",
+    "typescript": "^3.0.1"
+  },
+  "ava": {
+    "files": [
+      "src/**/*.spec.{js,ts}"
+    ],
+    "source": [
+      "src/**/*.{js,jsx,ts,tsx}"
+    ]
+  }
+}

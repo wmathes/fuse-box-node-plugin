@@ -1,0 +1,12 @@
+# dev environment
+.idea/
+
+# test fragments
+.artifacts/
+
+# others
+node_modules/
+lib/
+*.log
+*.zip
+*.tgz

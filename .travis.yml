@@ -1,0 +1,19 @@
+dist: trusty
+language: node
+
+cache:
+  directories:
+  - node_modules
+
+before_install:
+  - docker pull ${LAMBDA_IMAGE}
+
+install:
+  - npm install
+
+script:
+  - npm test
+  - npm build
+
+after_success:
+  - npm run semantic-release
