@@ -1,8 +1,11 @@
 /.idea
 /src
 /node_modules
+!/lib
 .artifacts
 .gitignore
 .travis.yml
 tsconfig.json
 tslint.json
+*.tgz
+*.log
